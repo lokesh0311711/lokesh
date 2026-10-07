@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RailOpt AI - Automatic Block Planning</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">🚆</div>
+            <div>
+                <h2>RailOpt AI</h2>
+                <span>Automatic Block Planning</span>
+            </div>
+        </div>
+
+        <nav>
+
+            <button class="nav-btn active" data-page="dashboard">
+                📊 Dashboard
+            </button>
+
+            <button class="nav-btn" data-page="maintenance">
+                🛠 Maintenance Tasks
+            </button>
+
+            <button class="nav-btn" data-page="scheduler">
+                🤖 AI Scheduler
+            </button>
+
+            <button class="nav-btn" data-page="weekly">
+                📅 Weekly Plan
+            </button>
+
+            <button class="nav-btn" data-page="monthly">
+                🗓 Monthly Plan
+            </button>
+
+            <button class="nav-btn" data-page="corridor">
+                🚦 Corridor Status
+            </button>
+
+            <button class="nav-btn" data-page="analytics">
+                📈 Analytics
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            SIH Problem 26027
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main">
+
+        <!-- HEADER -->
+
+        <header>
+
+            <div>
+                <h1 id="pageTitle">
+                    Railway Maintenance Control Centre
+                </h1>
+
+                <p>
+                    AI-Assisted Integrated Block Planning System
+                </p>
+            </div>
+
+            <div class="header-actions">
+
+                <span class="system-status">
+                    ● System Online
+                </span>
+
+                <button id="generateBtn" class="primary-btn">
+                    ⚡ Generate AI Plan
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+
+        <section id="dashboard" class="page active-page">
+
+            <div class="hero">
+
+                <div>
+
+                    <span class="badge">
+                        SMART RAILWAY MAINTENANCE
+                    </span>
+
+                    <h2>
+                        Intelligent Maintenance Block Planning
+                    </h2>
+
+                    <p>
+                        Coordinate Engineering, Signal & Telecommunication
+                        and Traction Distribution maintenance using a unified
+                        data-driven scheduling engine.
+                    </p>
+
+                    <button class="primary-btn" onclick="generateSchedule()">
+                        Generate Optimized Schedule
+                    </button>
+
+                </div>
+
+                <div class="ai-box">
+
+                    <div class="ai-circle">
+                        AI
+                    </div>
+
+                    <h3>Optimization Engine</h3>
+
+                    <p>
+                        Criticality + Urgency + Traffic Impact + Asset Risk
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- SUMMARY CARDS -->
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <div class="card-icon blue">
+                        🛠
+                    </div>
+
+                    <div>
+                        <p>Maintenance Tasks</p>
+                        <h2 id="totalTasks">0</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon red">
+                        ⚠
+                    </div>
+
+                    <div>
+                        <p>Critical Defects</p>
+                        <h2 id="criticalTasks">0</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon green">
+                        ✓
+                    </div>
+
+                    <div>
+                        <p>Scheduled Blocks</p>
+                        <h2 id="scheduledTasks">0</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon purple">
+                        📈
+                    </div>
+
+                    <div>
+                        <p>Asset Availability</p>
+                        <h2 id="availability">96%</h2>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="panel">
+
+                    <div class="panel-title">
+
+                        <h3>Maintenance Distribution</h3>
+
+                    </div>
+
+                    <canvas id="departmentChart"></canvas>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-title">
+
+                        <h3>AI Priority Queue</h3>
+
+                    </div>
+
+                    <div id="priorityQueue"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-title">
+
+                    <h3>System Integration</h3>
+
+                </div>
+
+                <div class="integration-grid">
+
+                    <div class="integration-card">
+
+                        <strong>TMS</strong>
+
+                        <span class="connected">
+                            ● Connected
+                        </span>
+
+                        <p>Track maintenance & defects</p>
+
+                    </div>
+
+
+                    <div class="integration-card">
+
+                        <strong>SMMS</strong>
+
+                        <span class="connected">
+                            ● Connected
+                        </span>
+
+                        <p>Signal maintenance data</p>
+
+                    </div>
+
+
+                    <div class="integration-card">
+
+                        <strong>TDMS</strong>
+
+                        <span class="connected">
+                            ● Connected
+                        </span>
+
+                        <p>Traction distribution maintenance</p>
+
+                    </div>
+
+
+                    <div class="integration-card">
+
+                        <strong>COA</strong>
+
+                        <span class="connected">
+                            ● Connected
+                        </span>
+
+                        <p>Train movement & corridor availability</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MAINTENANCE -->
+
+        <section id="maintenance" class="page">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Maintenance Tasks</h2>
+                    <p>
+                        Integrated data from TMS, SMMS and TDMS
+                    </p>
+                </div>
+
+                <button class="primary-btn" onclick="openModal()">
+                    + Add Task
+                </button>
+
+            </div>
+
+
+            <div class="filter-bar">
+
+                <input
+                    type="text"
+                    id="searchTask"
+                    placeholder="Search asset, corridor or task..."
+                >
+
+                <select id="departmentFilter">
+
+                    <option value="all">
+                        All Departments
+                    </option>
+
+                    <option value="Engineering">
+                        Engineering
+                    </option>
+
+                    <option value="Signal">
+                        Signal & Telecom
+                    </option>
+
+                    <option value="Traction">
+                        Traction Distribution
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+                            <th>Department</th>
+                            <th>Asset</th>
+                            <th>Maintenance</th>
+                            <th>Corridor</th>
+                            <th>Criticality</th>
+                            <th>Overdue</th>
+                            <th>AI Score</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="taskTable">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- AI SCHEDULER -->
+
+        <section id="scheduler" class="page">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>AI Block Scheduler</h2>
+
+                    <p>
+                        Automated maintenance prioritization and block allocation
+                    </p>
+
+                </div>
+
+                <button class="primary-btn" onclick="generateSchedule()">
+                    🤖 Run Optimization
+                </button>
+
+            </div>
+
+
+            <div class="scheduler-info">
+
+                <div class="algorithm-card">
+
+                    <h3>AI Priority Model</h3>
+
+                    <p>
+                        Each maintenance task receives a priority score based on:
+                    </p>
+
+                    <div class="formula">
+
+                        Priority =
+                        Criticality × 40
+                        + Overdue × 25
+                        + Safety Risk × 20
+                        + Asset Impact × 15
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-title">
+
+                    <h3>Optimized Block Schedule</h3>
+
+                    <span id="optimizationStatus">
+                        Waiting for optimization
+                    </span>
+
+                </div>
+
+                <div id="scheduleResults">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- WEEKLY PLAN -->
+
+        <section id="weekly" class="page">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Weekly Block Plan</h2>
+
+                    <p>
+                        Optimized maintenance plan for the next seven days
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div id="weeklyPlan" class="week-grid">
+            </div>
+
+        </section>
+
+
+        <!-- MONTHLY PLAN -->
+
+        <section id="monthly" class="page">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Monthly Maintenance Plan</h2>
+
+                    <p>
+                        Strategic block allocation for long-term planning
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div id="monthlyPlan" class="calendar">
+            </div>
+
+        </section>
+
+
+        <!-- CORRIDOR -->
+
+        <section id="corridor" class="page">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Railway Corridor Status</h2>
+
+                    <p>
+                        Train traffic and block availability from COA
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div id="corridorGrid" class="corridor-grid">
+            </div>
+
+        </section>
+
+
+        <!-- ANALYTICS -->
+
+        <section id="analytics" class="page">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Performance Analytics</h2>
+
+                    <p>
+                        Impact of optimized railway maintenance planning
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <div>
+                        <p>Block Utilization</p>
+                        <h2>91%</h2>
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <div>
+                        <p>Downtime Reduction</p>
+                        <h2>34%</h2>
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <div>
+                        <p>Planning Efficiency</p>
+                        <h2>87%</h2>
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <div>
+                        <p>Conflict Reduction</p>
+                        <h2>76%</h2>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="panel">
+                    <canvas id="availabilityChart"></canvas>
+                </div>
+
+                <div class="panel">
+                    <canvas id="riskChart"></canvas>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ADD TASK MODAL -->
+
+    <div id="taskModal" class="modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2>Add Maintenance Task</h2>
+
+                <button onclick="closeModal()">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="taskForm">
+
+                <label>
+                    Department
+                </label>
+
+                <select id="newDepartment" required>
+
+                    <option>Engineering</option>
+                    <option>Signal</option>
+                    <option>Traction</option>
+
+                </select>
+
+
+                <label>
+                    Asset
+                </label>
+
+                <input id="newAsset" required>
+
+
+                <label>
+                    Maintenance Activity
+                </label>
+
+                <input id="newTask" required>
+
+
+                <label>
+                    Corridor
+                </label>
+
+                <select id="newCorridor">
+
+                    <option>Vijayawada - Guntur</option>
+                    <option>Guntur - Tenali</option>
+                    <option>Vijayawada - Gudivada</option>
+                    <option>Tenali - Ongole</option>
+
+                </select>
+
+
+                <label>
+                    Criticality
+                </label>
+
+                <select id="newCriticality">
+
+                    <option value="5">Critical</option>
+                    <option value="4">High</option>
+                    <option value="3">Medium</option>
+                    <option value="2">Low</option>
+
+                </select>
+
+
+                <label>
+                    Days Overdue
+                </label>
+
+                <input
+                    id="newOverdue"
+                    type="number"
+                    min="0"
+                    value="0"
+                >
+
+
+                <button class="primary-btn" type="submit">
+                    Add Task
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <div id="toast"></div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
